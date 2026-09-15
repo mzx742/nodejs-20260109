@@ -1,966 +1,1155 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeFlow | Visual Development Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9fbfd;
-        }
-        
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header & Navigation */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            color: #4361ee;
-            font-size: 28px;
-            margin-right: 10px;
-        }
-        
-        .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .logo-text span {
-            color: #4361ee;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #4361ee;
-        }
-        
-        .cta-button {
-            background-color: #4361ee;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        .cta-button:hover {
-            background-color: #3a56d4;
-            transform: translateY(-2px);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #f9fbfd 100%);
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
-        
-        .hero-text h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .hero-text h1 span {
-            color: #4361ee;
-        }
-        
-        .hero-text p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .secondary-button {
-            background-color: white;
-            color: #4361ee;
-            border: 2px solid #4361ee;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .secondary-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15);
-        }
-        
-        /* Features Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: #222;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            background-color: #eef2ff;
-            color: #4361ee;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 0;
-            background-color: #f0f4ff;
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit-item {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .benefit-icon {
-            color: #4361ee;
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-        
-        .benefit-item h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .benefit-item p {
-            color: #666;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .testimonial {
-            background: #f9fbfd;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 30px;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4361ee;
-            font-size: 24px;
-        }
-        
-        .author-info h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* Pricing Section */
-        .pricing {
-            padding: 100px 0;
-            background-color: #f9fbfd;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .pricing-card {
-            background: white;
-            border-radius: 10px;
-            padding: 40px 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .pricing-card.featured {
-            border-top: 5px solid #4361ee;
-            transform: scale(1.05);
-            position: relative;
-        }
-        
-        .featured-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4361ee;
-            color: white;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .plan-name {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .plan-price {
-            font-size: 48px;
-            font-weight: 700;
-            color: #4361ee;
-            margin-bottom: 20px;
-        }
-        
-        .plan-price span {
-            font-size: 16px;
-            color: #777;
-        }
-        
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .plan-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
-        }
-        
-        .plan-features li:last-child {
-            border-bottom: none;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-            text-align: center;
-            color: white;
-        }
-        
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .cta-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .cta-section .cta-button {
-            background-color: white;
-            color: #4361ee;
-            font-size: 16px;
-            padding: 15px 40px;
-        }
-        
-        .cta-section .cta-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 70px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column h3 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 25px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: #4361ee;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            font-size: 14px;
-            color: #888;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-                text-align: center;
-            }
-            
-            .hero-text p {
-                margin: 0 auto 30px;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-text h1 {
-                font-size: 36px;
-            }
-            
-            .section-title h2 {
-                font-size: 30px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-buttons button {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 130px 0 80px;
-            }
-            
-            .features, .benefits, .testimonials, .pricing, .cta-section {
-                padding: 70px 0;
-            }
-            
-            .feature-card, .testimonial {
-                padding: 25px;
-            }
-            
-            .plan-price {
-                font-size: 36px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green Advancing, Desert Retreating · China's Desertification Control</title>
+<style>
+/* ============ Base ============ */
+:root{
+  --sand-0:#0d0b07;
+  --sand-1:#161109;
+  --sand-2:#1f180d;
+  --sand-3:#2b2113;
+  --line:rgba(214,182,116,.16);
+  --gold:#d8b46a;
+  --gold-2:#f0d79b;
+  --green:#4fbf7a;
+  --green-2:#8fe0ab;
+  --ink:#f2ead8;
+  --ink-2:#b9ae95;
+  --ink-3:#857b64;
+  --shadow:0 18px 50px -18px rgba(0,0,0,.85);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--sand-0);
+  color:var(--ink);
+  font-family:"Inter","Segoe UI","Helvetica Neue",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.75;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(216,180,106,.3)}
+.wrap{width:min(1180px,92vw);margin:0 auto}
+
+/* ============ Scroll progress bar ============ */
+#progress{
+  position:fixed;top:0;left:0;height:3px;width:0;z-index:999;
+  background:linear-gradient(90deg,var(--gold),var(--green-2));
+  box-shadow:0 0 14px rgba(216,180,106,.6);
+  transition:width .08s linear;
+}
+
+/* ============ Top navigation ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:16px 0;
+  transition:all .4s ease;
+}
+header.solid{
+  background:rgba(13,11,7,.82);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+  padding:10px 0;
+}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.04em}
+.logo .mark{
+  width:26px;height:26px;border-radius:7px;
+  background:linear-gradient(135deg,var(--gold),#8a6d2e);
+  display:grid;place-items:center;font-size:14px;color:#1a1408;
+}
+.nav-links{display:flex;gap:26px;font-size:14px}
+.nav-links a{
+  color:var(--ink-2);text-decoration:none;position:relative;
+  padding:4px 0;transition:color .3s;
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
+  background:var(--gold);transition:width .35s ease;
+}
+.nav-links a:hover{color:var(--gold-2)}
+.nav-links a:hover::after{width:100%}
+.burger{display:none;background:none;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 10px;font-size:16px;cursor:pointer}
+
+/* ============ Hero ============ */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  overflow:hidden;padding:120px 0 80px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(900px 520px at 78% 22%,rgba(216,180,106,.18),transparent 62%),
+    radial-gradient(700px 500px at 18% 78%,rgba(79,191,122,.14),transparent 62%),
+    linear-gradient(180deg,#0d0b07 0%,#17110a 55%,#0d0b07 100%);
+}
+/* Dune layers */
+.dunes{position:absolute;left:0;right:0;bottom:0;height:46vh;pointer-events:none}
+.dunes svg{width:100%;height:100%;display:block}
+.dune{transform-origin:center bottom;animation:drift 18s ease-in-out infinite alternate}
+.dune:nth-child(2){animation-duration:24s;animation-direction:alternate-reverse}
+.dune:nth-child(3){animation-duration:30s}
+@keyframes drift{
+  from{transform:translateY(0) scaleY(1)}
+  to{transform:translateY(-10px) scaleY(1.03)}
+}
+/* Floating sand motes */
+.motes{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.mote{
+  position:absolute;border-radius:50%;
+  background:rgba(240,215,155,.5);
+  animation:float linear infinite;
+}
+@keyframes float{
+  0%{transform:translate3d(0,110vh,0) scale(.6);opacity:0}
+  12%{opacity:.7}
+  88%{opacity:.5}
+  100%{transform:translate3d(46px,-12vh,0) scale(1.1);opacity:0}
+}
+.hero-inner{position:relative;z-index:3}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:12.5px;letter-spacing:.18em;color:var(--gold);
+  border:1px solid var(--line);border-radius:100px;
+  padding:7px 18px;margin-bottom:26px;
+  background:rgba(216,180,106,.05);
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.5)}}
+h1{
+  font-size:clamp(2.6rem,7.4vw,5.4rem);
+  line-height:1.06;font-weight:800;letter-spacing:-.02em;
+  margin-bottom:8px;
+}
+h1 .grad{
+  background:linear-gradient(100deg,var(--gold-2) 0%,var(--gold) 40%,var(--green-2) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+h1 .thin{color:var(--ink-3);font-weight:300;font-size:.46em;display:block;letter-spacing:.14em;margin-top:18px}
+.hero-sub{
+  max-width:640px;margin-top:28px;font-size:1.06rem;color:var(--ink-2);
+}
+.hero-sub strong{color:var(--gold-2);font-weight:600}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  margin-top:56px;background:var(--line);border:1px solid var(--line);
+  border-radius:14px;overflow:hidden;max-width:900px;
+}
+.hero-stats .item{background:rgba(22,17,9,.7);padding:22px 20px;backdrop-filter:blur(6px)}
+.hero-stats .num{
+  font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:800;color:var(--gold-2);
+  line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;
+}
+.hero-stats .num .u{font-size:.5em;font-weight:600;color:var(--ink-3);margin-left:3px}
+.hero-stats .lab{font-size:12.5px;color:var(--ink-3);margin-top:6px;letter-spacing:.04em}
+.scroll-hint{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  z-index:4;color:var(--ink-3);font-size:11px;letter-spacing:.24em;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.scroll-hint .bar{width:1px;height:36px;background:linear-gradient(var(--gold),transparent)}
+
+/* ============ Shared section styles ============ */
+section{padding:110px 0;position:relative}
+.sec-head{margin-bottom:56px;max-width:820px}
+.sec-tag{
+  font-size:12px;letter-spacing:.26em;color:var(--gold);
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+}
+.sec-tag::before{content:"";width:30px;height:1px;background:var(--gold);opacity:.6}
+h2{font-size:clamp(1.7rem,3.8vw,2.6rem);font-weight:800;line-height:1.2;letter-spacing:-.01em}
+h2 em{font-style:normal;color:var(--green-2)}
+.sec-desc{color:var(--ink-2);margin-top:16px;font-size:1rem}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+
+/* ============ Reversal ============ */
+.reversal{background:linear-gradient(180deg,#0d0b07,#15100a 50%,#0d0b07)}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+.rev-card{
+  border:1px solid var(--line);border-radius:16px;padding:32px;
+  background:linear-gradient(160deg,rgba(43,33,19,.6),rgba(22,17,9,.4));
+  position:relative;overflow:hidden;
+}
+.rev-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+}
+.rev-card.bad::before{background:linear-gradient(90deg,#c2703f,transparent)}
+.rev-card.good::before{background:linear-gradient(90deg,var(--green),transparent)}
+.rev-era{font-size:12.5px;letter-spacing:.16em;color:var(--ink-3);margin-bottom:12px}
+.rev-val{
+  font-size:clamp(2.2rem,5vw,3.2rem);font-weight:800;line-height:1;
+  font-variant-numeric:tabular-nums;letter-spacing:-.03em;
+}
+.rev-card.bad .rev-val{color:#e0906a}
+.rev-card.good .rev-val{color:var(--green-2)}
+.rev-val .u{font-size:.32em;font-weight:600;color:var(--ink-3);margin-left:6px;letter-spacing:0}
+.rev-note{color:var(--ink-2);font-size:14px;margin-top:14px}
+.rev-arrow{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  grid-column:1/-1;color:var(--green-2);font-size:14px;letter-spacing:.1em;
+}
+.rev-arrow .line{
+  flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(79,191,122,.5),transparent);
+  position:relative;
+}
+.rev-arrow .line::after{
+  content:"";position:absolute;right:0;top:-3px;
+  border-left:7px solid rgba(79,191,122,.7);
+  border-top:3.5px solid transparent;border-bottom:3.5px solid transparent;
+}
+.rev-arrow .line:last-child::after{display:none}
+.rev-arrow .line:last-child::before{
+  content:"";position:absolute;left:0;top:-3px;
+  border-right:7px solid rgba(79,191,122,.7);
+  border-top:3.5px solid transparent;border-bottom:3.5px solid transparent;
+}
+
+/* ============ Charts ============ */
+.charts{display:grid;grid-template-columns:1.25fr 1fr;gap:26px}
+.chart-box{
+  border:1px solid var(--line);border-radius:16px;padding:28px;
+  background:rgba(22,17,9,.55);
+}
+.chart-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.chart-sub{font-size:12.5px;color:var(--ink-3);margin-bottom:22px}
+/* Bars */
+.bars{display:flex;align-items:flex-end;gap:16px;height:230px;padding-top:10px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:9px}
+.bar{
+  width:100%;max-width:74px;border-radius:8px 8px 3px 3px;
+  background:linear-gradient(180deg,var(--gold-2),#a8843c);
+  height:0;transition:height 1.3s cubic-bezier(.16,1,.3,1);
+  position:relative;
+}
+.bar.g{background:linear-gradient(180deg,var(--green-2),#35875a)}
+.bar span{
+  position:absolute;top:-24px;left:50%;transform:translateX(-50%);
+  font-size:13px;font-weight:700;color:var(--gold-2);white-space:nowrap;
+}
+.bar.g span{color:var(--green-2)}
+.bar-lab{font-size:12px;color:var(--ink-3);text-align:center;line-height:1.35}
+/* Ring progress group */
+.rings{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.ring-item{text-align:center}
+.ring{position:relative;width:100%;aspect-ratio:1;max-width:120px;margin:0 auto}
+.ring svg{transform:rotate(-90deg);width:100%;height:100%}
+.ring .track{fill:none;stroke:rgba(214,182,116,.13);stroke-width:7}
+.ring .val{
+  fill:none;stroke:url(#ringGrad);stroke-width:7;stroke-linecap:round;
+  transition:stroke-dashoffset 1.5s cubic-bezier(.16,1,.3,1);
+}
+.ring-num{
+  position:absolute;inset:0;display:grid;place-content:center;
+  font-size:1.24rem;font-weight:800;color:var(--gold-2);
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em;
+}
+.ring-num .u{font-size:.55em}
+.ring-lab{font-size:12px;color:var(--ink-3);margin-top:12px;line-height:1.4}
+
+/* ============ Timeline ============ */
+.timeline-sec{background:linear-gradient(180deg,#0d0b07,#131009 50%,#0d0b07)}
+.timeline{position:relative;margin-top:20px;padding-left:10px}
+.timeline::before{
+  content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(180deg,transparent,rgba(216,180,106,.45) 12%,rgba(79,191,122,.5) 88%,transparent);
+}
+.tl-item{
+  position:relative;padding:0 0 42px 46px;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);
+}
+.tl-item.in{opacity:1;transform:none}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{
+  position:absolute;left:0;top:5px;width:20px;height:20px;border-radius:50%;
+  background:var(--sand-1);border:2px solid var(--gold);
+  display:grid;place-items:center;
+}
+.tl-dot::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.tl-item:last-child .tl-dot{border-color:var(--green);box-shadow:0 0 0 5px rgba(79,191,122,.14)}
+.tl-item:last-child .tl-dot::after{background:var(--green)}
+.tl-year{
+  font-size:13px;font-weight:800;letter-spacing:.12em;color:var(--gold);
+  margin-bottom:6px;font-variant-numeric:tabular-nums;
+}
+.tl-title{font-size:1.08rem;font-weight:700;margin-bottom:7px}
+.tl-desc{font-size:14px;color:var(--ink-2);max-width:720px}
+.tl-desc b{color:var(--gold-2);font-weight:600}
+
+/* ============ Case cards ============ */
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.case{
+  border:1px solid var(--line);border-radius:16px;padding:28px 26px;
+  background:linear-gradient(170deg,rgba(43,33,19,.55),rgba(20,15,8,.35));
+  position:relative;overflow:hidden;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .4s,box-shadow .4s;
+}
+.case:hover{transform:translateY(-6px);border-color:rgba(216,180,106,.4);box-shadow:var(--shadow)}
+.case .glow{
+  position:absolute;width:180px;height:180px;border-radius:50%;top:-80px;right:-60px;
+  background:radial-gradient(circle,rgba(216,180,106,.16),transparent 70%);
+  pointer-events:none;
+}
+.case-icon{
+  width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(216,180,106,.1);border:1px solid var(--line);
+  font-size:20px;margin-bottom:18px;
+}
+.case-name{font-size:1.16rem;font-weight:800;margin-bottom:6px;letter-spacing:-.01em}
+.case-loc{font-size:12px;color:var(--ink-3);letter-spacing:.1em;margin-bottom:16px}
+.case-stat{
+  font-size:2rem;font-weight:800;color:var(--green-2);line-height:1;
+  font-variant-numeric:tabular-nums;letter-spacing:-.03em;margin-bottom:6px;
+}
+.case-stat .u{font-size:.42em;color:var(--ink-3);margin-left:4px;font-weight:600}
+.case-stat-desc{font-size:12.5px;color:var(--ink-3);margin-bottom:16px}
+.case-desc{font-size:13.5px;color:var(--ink-2);line-height:1.7}
+.case-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.tag{
+  font-size:11.5px;padding:3px 10px;border-radius:100px;
+  border:1px solid var(--line);color:var(--ink-3);
+  background:rgba(216,180,106,.05);
+}
+
+/* ============ Methodology ============ */
+.tech-sec{background:linear-gradient(180deg,#0d0b07,#141009 50%,#0d0b07)}
+.tech-flow{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;
+}
+.tech-step{
+  border:1px solid var(--line);border-radius:14px;padding:26px 22px;
+  background:rgba(22,17,9,.6);position:relative;
+  opacity:0;transform:translateY(22px);
+  transition:opacity .6s,transform .6s cubic-bezier(.16,1,.3,1);
+}
+.tech-step.in{opacity:1;transform:none}
+.tech-step::after{
+  content:"→";position:absolute;right:-14px;top:50%;transform:translateY(-50%);
+  color:var(--gold);opacity:.5;font-size:15px;z-index:2;
+}
+.tech-step:last-child::after{display:none}
+.tech-num{
+  font-size:11px;letter-spacing:.2em;color:var(--gold);margin-bottom:12px;
+}
+.tech-name{font-size:1.02rem;font-weight:700;margin-bottom:10px}
+.tech-desc{font-size:13px;color:var(--ink-2);line-height:1.65}
+.tech-metric{
+  margin-top:14px;font-size:12.5px;color:var(--green-2);
+  border-top:1px dashed var(--line);padding-top:12px;
+}
+
+/* ============ International cooperation ============ */
+.intl-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;align-items:start}
+.intl-list{display:flex;flex-direction:column;gap:0}
+.intl-row{
+  display:flex;gap:18px;padding:19px 0;border-bottom:1px solid var(--line);
+  align-items:flex-start;
+}
+.intl-row:first-child{border-top:1px solid var(--line)}
+.intl-flag{
+  flex:0 0 46px;height:46px;border-radius:11px;display:grid;place-items:center;
+  background:rgba(216,180,106,.08);border:1px solid var(--line);font-size:19px;
+}
+.intl-name{font-size:14.5px;font-weight:700;margin-bottom:4px}
+.intl-desc{font-size:13px;color:var(--ink-2);line-height:1.65}
+.quote-box{
+  border:1px solid var(--line);border-radius:16px;padding:32px;
+  background:linear-gradient(160deg,rgba(79,191,122,.07),rgba(22,17,9,.5));
+  position:relative;
+}
+.quote-box .qmark{
+  font-size:4rem;line-height:.7;color:var(--gold);opacity:.32;
+  font-family:Georgia,serif;display:block;margin-bottom:6px;
+}
+.quote-box p{font-size:1.04rem;line-height:1.8;color:var(--ink)}
+.quote-box .who{
+  margin-top:20px;font-size:12.5px;color:var(--ink-3);
+  border-top:1px solid var(--line);padding-top:16px;
+}
+.quote-box .who b{color:var(--gold-2);display:block;font-size:13.5px;margin-bottom:3px;font-weight:600}
+
+/* ============ Footnotes ============ */
+.footnote{
+  margin-top:44px;font-size:12px;color:var(--ink-3);line-height:1.9;
+  border-top:1px solid var(--line);padding-top:20px;
+}
+.footnote b{color:var(--ink-2)}
+
+/* ============ Footer ============ */
+footer{
+  padding:56px 0 44px;border-top:1px solid var(--line);
+  background:#0b0906;
+}
+.foot-inner{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.foot-title{font-size:1.1rem;font-weight:800;margin-bottom:8px}
+.foot-sub{font-size:12.5px;color:var(--ink-3);line-height:1.9}
+.foot-right{font-size:12px;color:var(--ink-3);text-align:right}
+
+/* ============ Scroll reveal ============ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+/* ============ Back to top ============ */
+#top{
+  position:fixed;right:24px;bottom:24px;z-index:800;
+  width:44px;height:44px;border-radius:12px;cursor:pointer;
+  border:1px solid var(--line);background:rgba(22,17,9,.85);
+  color:var(--gold);font-size:16px;display:grid;place-items:center;
+  opacity:0;pointer-events:none;transition:all .35s;backdrop-filter:blur(8px);
+}
+#top.show{opacity:1;pointer-events:auto}
+#top:hover{background:rgba(216,180,106,.16);transform:translateY(-3px)}
+
+/* ============ Responsive ============ */
+@media(max-width:980px){
+  .rev-grid{grid-template-columns:1fr}
+  .charts{grid-template-columns:1fr}
+  .case-grid{grid-template-columns:1fr 1fr}
+  .tech-flow{grid-template-columns:1fr 1fr}
+  .tech-step::after{display:none}
+  .intl-grid{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:680px){
+  section{padding:76px 0}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;gap:0;background:rgba(13,11,7,.97);
+    border-bottom:1px solid var(--line);padding:10px 0}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:13px 4vw}
+  .burger{display:block}
+  .case-grid{grid-template-columns:1fr}
+  .tech-flow{grid-template-columns:1fr}
+  .rings{grid-template-columns:1fr 1fr}
+  .bars{gap:9px;height:190px}
+  .bar span{font-size:11px;top:-20px}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .foot-inner{flex-direction:column;align-items:flex-start}
+  .foot-right{text-align:left}
+}
+</style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                    <div class="logo-text">Code<span>Flow</span></div>
-                </div>
-                
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#">Resources</a></li>
-                </ul>
-                
-                <button class="cta-button">Start Free Trial</button>
-                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Build Apps Faster With <span>Visual Development</span></h1>
-                    <p>CodeFlow empowers teams to create enterprise-grade applications with minimal coding. Drag, drop, and connect components to build powerful web and mobile apps in record time.</p>
-                    <div class="hero-buttons">
-                        <button class="cta-button">Start Building Free</button>
-                        <button class="secondary-button">Watch Demo</button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CodeFlow Platform Interface">
-                </div>
-            </div>
-        </div>
-    </section>
+<div id="progress"></div>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Powerful Features for Rapid Development</h2>
-                <p>CodeFlow provides all the tools you need to build, deploy, and scale applications without writing extensive code.</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-th-large"></i>
-                    </div>
-                    <h3>Visual Builder</h3>
-                    <p>Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database Integration</h3>
-                    <p>Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Cross-Platform</h3>
-                    <p>Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Extensible with Code</h3>
-                    <p>Add custom functionality with JavaScript when needed. Our platform doesn't limit your creativity or complexity.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>One-Click Deployment</h3>
-                    <p>Deploy to cloud or on-premises with a single click. Automatic scaling and monitoring included.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<header id="header">
+  <div class="wrap nav">
+    <div class="logo"><span class="mark">🌿</span>Green Advancing</div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#reversal">The Turning Point</a>
+      <a href="#data">Key Figures</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#cases">Landmarks</a>
+      <a href="#tech">Methodology</a>
+      <a href="#world">China's Solution</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</header>
 
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose CodeFlow?</h2>
-                <p>Join thousands of companies accelerating their digital transformation with low-code development.</p>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>10x Faster Development</h3>
-                    <p>Build applications in days instead of months with visual development tools.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Reduce Costs by 70%</h3>
-                    <p>Lower development and maintenance costs with fewer resources required.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Citizen Developers</h3>
-                    <p>Enable business users to build solutions with minimal IT assistance.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Scale Effortlessly</h3>
-                    <p>From prototype to enterprise-scale applications with the same platform.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ================= Hero ================= -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="motes" id="motes"></div>
+  <div class="dunes">
+    <svg viewBox="0 0 1440 420" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="d1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3a2c17"/><stop offset="100%" stop-color="#18120a"/>
+        </linearGradient>
+        <linearGradient id="d2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2b4a34"/><stop offset="100%" stop-color="#131b12"/>
+        </linearGradient>
+        <linearGradient id="d3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1d2b1c"/><stop offset="100%" stop-color="#0e1109"/>
+        </linearGradient>
+      </defs>
+      <path class="dune" fill="url(#d3)" d="M0,300 C220,240 360,330 560,300 C760,270 900,200 1120,250 C1260,282 1360,262 1440,290 L1440,420 L0,420 Z"/>
+      <path class="dune" fill="url(#d2)" d="M0,350 C200,300 340,370 540,340 C780,305 880,255 1100,300 C1280,336 1370,315 1440,340 L1440,420 L0,420 Z" opacity=".92"/>
+      <path class="dune" fill="url(#d1)" d="M0,392 C260,356 420,404 660,382 C900,360 1060,398 1260,378 C1350,369 1410,382 1440,390 L1440,420 L0,420 Z" opacity=".8"/>
+    </svg>
+  </div>
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Trusted by Industry Leaders</h2>
-                <p>See what our customers have to say about their experience with CodeFlow.</p>
-            </div>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SC</div>
-                        <div class="author-info">
-                            <h4>Sarah Chen</h4>
-                            <p>CTO, TechGrowth Inc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="wrap hero-inner">
+    <div class="eyebrow"><span class="dot"></span>CHINA'S DESERTIFICATION CONTROL</div>
+    <h1>
+      <span class="grad">Green Advancing</span>
+      <span class="thin">From "sand advancing, people retreating" to "green advancing, sand retreating"</span>
+    </h1>
+    <p class="hero-sub">
+      Half a century. Generations planting trees into the sand. China's desertified land area has shrunk
+      for four consecutive monitoring periods, making it the first country in the world to achieve the
+      2030 land degradation neutrality target &mdash; now widely cited as <strong>one of the clearest
+      large-scale examples of land degradation reversal</strong>.
+    </p>
 
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
-            </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="plan-name">Starter</h3>
-                    <div class="plan-price">$29<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 5 users</li>
-                        <li>10 GB storage</li>
-                        <li>Basic components</li>
-                        <li>Community support</li>
-                        <li>1 production app</li>
-                    </ul>
-                    <button class="secondary-button">Get Started</button>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="featured-badge">Most Popular</div>
-                    <h3 class="plan-name">Professional</h3>
-                    <div class="plan-price">$89<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 25 users</li>
-                        <li>100 GB storage</li>
-                        <li>All components</li>
-                        <li>Priority support</li>
-                        <li>10 production apps</li>
-                        <li>Custom branding</li>
-                    </ul>
-                    <button class="cta-button">Try Free for 14 Days</button>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3 class="plan-name">Enterprise</h3>
-                    <div class="plan-price">Custom</div>
-                    <ul class="plan-features">
-                        <li>Unlimited users</li>
-                        <li>Unlimited storage</li>
-                        <li>All features included</li>
-                        <li>24/7 dedicated support</li>
-                        <li>Unlimited apps</li>
-                        <li>On-premises option</li>
-                    </ul>
-                    <button class="secondary-button">Contact Sales</button>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="hero-stats">
+      <div class="item"><div class="num" data-count="1.52" data-dec="2">0<span class="u">M mu</span></div><div class="lab">Sandified land treated (14th Five-Year Plan)</div></div>
+      <div class="item"><div class="num" data-count="1000">0<span class="u">k mu/yr</span></div><div class="lab">Annual net reduction of sandified land</div></div>
+      <div class="item"><div class="num" data-count="40.76">0<span class="u">%</span></div><div class="lab">Forest &amp; grass cover in the Three-North region</div></div>
+      <div class="item"><div class="num" data-count="67.82">0<span class="u">%</span></div><div class="lab">Treatable sandified land treated</div></div>
+    </div>
+  </div>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Start Building Today</h2>
-            <p>Join over 10,000 companies that use CodeFlow to accelerate their application development. No credit card required for the free trial.</p>
-            <button class="cta-button">Get Started for Free</button>
-        </div>
-    </section>
+  <div class="scroll-hint"><span>SCROLL</span><span class="bar"></span></div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <div class="logo">
-                        <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                        <div class="logo-text">Code<span>Flow</span></div>
-                    </div>
-                    <p style="margin-top: 20px; color: #aaa;">The leading visual development platform for building enterprise applications with minimal coding.</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Product</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Use Cases</a></li>
-                        <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Roadmap</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 CodeFlow. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+<!-- ================= Reversal ================= -->
+<section id="reversal" class="reversal">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">THE TURNING POINT</div>
+      <h2>A decades-long trend, <em>decisively reversed</em></h2>
+      <p class="sec-desc">
+        At the end of the last century, China's sandified land was still expanding. Today, on the very
+        same land, it is shrinking &mdash; and shrinking faster. This is the real watershed in the history
+        of desert control.
+      </p>
+    </div>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            
-            // Adjust for mobile
-            if (window.innerWidth <= 768) {
-                if (navLinks.style.display === 'flex') {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '80px';
-                    navLinks.style.left = '0';
-                    navLinks.style.width = '100%';
-                    navLinks.style.backgroundColor = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                    
-                    const navItems = document.querySelectorAll('.nav-links li');
-                    navItems.forEach(item => {
-                        item.style.margin = '10px 0';
-                    });
-                }
-            }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if(window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').style.display = 'none';
-                    }
-                }
-            });
-        });
-        
-        // Simple testimonial slider
-        const testimonials = [
-            {
-                text: "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.",
-                name: "Sarah Chen",
-                position: "CTO, TechGrowth Inc.",
-                initials: "SC"
-            },
-            {
-                text: "We reduced our app development time by 80% using CodeFlow. The visual interface made it easy for our analysts to build data dashboards without waiting for IT resources.",
-                name: "Marcus Johnson",
-                position: "Director of Operations, DataCorp",
-                initials: "MJ"
-            },
-            {
-                text: "As a non-technical founder, CodeFlow allowed me to build our MVP in just 2 months. I could test ideas quickly and iterate based on user feedback without deep coding knowledge.",
-                name: "Lisa Wang",
-                position: "Founder, StartupLabs",
-                initials: "LW"
-            }
-        ];
-        
-        let currentTestimonial = 0;
-        const testimonialElement = document.querySelector('.testimonial');
-        
-        function rotateTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            updateTestimonial();
-        }
-        
-        function updateTestimonial() {
-            const testimonial = testimonials[currentTestimonial];
-            testimonialElement.innerHTML = `
-                <div class="testimonial-text">"${testimonial.text}"</div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">${testimonial.initials}</div>
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p>${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(rotateTestimonial, 5000);
-        
-        // CTA button interactions
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.');
-            });
-        });
-        
-        // Pricing card interactions
-        document.querySelectorAll('.pricing-card button').forEach(button => {
-            button.addEventListener('click', function() {
-                const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
-                alert(`You selected the ${planName} plan. In a real implementation, you would be redirected to the checkout process.`);
-            });
-        });
-    </script>
+    <div class="rev-grid">
+      <div class="rev-card bad reveal">
+        <div class="rev-era">Late 20th century · Desertification expanding</div>
+        <div class="rev-val">+515<span class="u">k mu / year</span></div>
+        <div class="rev-note">Sandified land was <b style="color:#e0906a">expanding</b> by 5.15 million mu a year. Sand advanced and people retreated; farmland and villages were swallowed by drifting dunes.</div>
+      </div>
+      <div class="rev-card good reveal d1">
+        <div class="rev-era">Today · Desertification reversing</div>
+        <div class="rev-val">&minus;1000<span class="u">k mu / year</span></div>
+        <div class="rev-note">Sandified land is now <b style="color:var(--green-2)">shrinking</b> by 10 million mu a year &mdash; a historic shift from "sand advancing" to "green advancing."</div>
+      </div>
+
+      <div class="rev-arrow reveal d2">
+        <span class="line"></span>
+        <span>Net expansion has turned into net reduction &mdash; and the pace of reduction is roughly twice the old pace of expansion</span>
+        <span class="line"></span>
+      </div>
+    </div>
+
+    <div class="footnote reveal">
+      <b>Note on units:</b> 1 mu ≈ 1/15 hectare, so 10 million mu ≈ 667,000 hectares; 1.52 million mu ≈ 101,300 hectares.
+      The eight major deserts and four major sandy lands together account for the bulk of China's sandified area.
+      <br><br>
+      According to the National Forestry and Grassland Administration: China's sandified land area has
+      <b>declined for four consecutive monitoring periods</b>, making China the first country to reach the
+      2030 land degradation neutrality target. Total soil wind erosion across the eight major deserts and
+      four major sandy lands has fallen about <b>40%</b> since 2000; average vegetation cover in sandy areas
+      has reached <b>21.17%</b>, up 2.84 percentage points from a decade ago.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================= Key figures ================= -->
+<section id="data">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">KEY FIGURES</div>
+      <h2>The scorecard, in numbers</h2>
+      <p class="sec-desc">All figures below are drawn from the latest public statistics released by the National Forestry and Grassland Administration and gov.cn.</p>
+    </div>
+
+    <div class="charts">
+      <!-- Bar chart -->
+      <div class="chart-box reveal">
+        <div class="chart-title">Key treatment targets completed, 14th Five-Year Plan</div>
+        <div class="chart-sub">Bars are scaled by magnitude, not a shared axis</div>
+        <div class="bars" id="bars">
+          <div class="bar-col">
+            <div class="bar" data-h="92" data-lab="1.52M mu"><span>1.52M mu</span></div>
+            <div class="bar-lab">Sandified land<br>treated</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar" data-h="70" data-lab="2.44M mu"><span>2.44M mu</span></div>
+            <div class="bar-lab">Three-North flagship<br>battles completed</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar g" data-h="38" data-lab="293.2k mu"><span>293.2k mu</span></div>
+            <div class="bar-lab">Rocky desertification<br>treated</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar g" data-h="26" data-lab="530k mu"><span>530k mu</span></div>
+            <div class="bar-lab">Sand control driven by<br>solar PV</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar g" data-h="33" data-lab="680k mu"><span>680k mu</span></div>
+            <div class="bar-lab">Sand control driven by<br>desert highways</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ring charts -->
+      <div class="chart-box reveal d1">
+        <div class="chart-title">Coverage rates</div>
+        <div class="chart-sub">Share of total area / treatable area</div>
+        <svg width="0" height="0" style="position:absolute">
+          <defs>
+            <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f0d79b"/>
+              <stop offset="70%" stop-color="#d8b46a"/>
+              <stop offset="100%" stop-color="#4fbf7a"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="rings">
+          <div class="ring-item">
+            <div class="ring">
+              <svg viewBox="0 0 120 120">
+                <circle class="track" cx="60" cy="60" r="52"></circle>
+                <circle class="val" cx="60" cy="60" r="52" data-pct="67.82"></circle>
+              </svg>
+              <div class="ring-num"><span data-pct-text="67.82">0</span><span class="u">%</span></div>
+            </div>
+            <div class="ring-lab">Treatable sandified<br>land treated</div>
+          </div>
+          <div class="ring-item">
+            <div class="ring">
+              <svg viewBox="0 0 120 120">
+                <circle class="track" cx="60" cy="60" r="52"></circle>
+                <circle class="val" cx="60" cy="60" r="52" data-pct="40.76"></circle>
+              </svg>
+              <div class="ring-num"><span data-pct-text="40.76">0</span><span class="u">%</span></div>
+            </div>
+            <div class="ring-lab">Forest &amp; grass cover,<br>Three-North region</div>
+          </div>
+          <div class="ring-item">
+            <div class="ring">
+              <svg viewBox="0 0 120 120">
+                <circle class="track" cx="60" cy="60" r="52"></circle>
+                <circle class="val" cx="60" cy="60" r="52" data-pct="93.24"></circle>
+              </svg>
+              <div class="ring-num"><span data-pct-text="93.24">0</span><span class="u">%</span></div>
+            </div>
+            <div class="ring-lab">Sandified land treated,<br>Yulin sandy area</div>
+          </div>
+          <div class="ring-item">
+            <div class="ring">
+              <svg viewBox="0 0 120 120">
+                <circle class="track" cx="60" cy="60" r="52"></circle>
+                <circle class="val" cx="60" cy="60" r="52" data-pct="75"></circle>
+              </svg>
+              <div class="ring-num"><span data-pct-text="75">0</span><span class="u">%</span></div>
+            </div>
+            <div class="ring-lab">Improved<br>seed use rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supplementary figures -->
+    <div class="charts" style="margin-top:26px">
+      <div class="chart-box reveal">
+        <div class="chart-title">Sand control and rural income, advanced together</div>
+        <div class="chart-sub">Three-North region, 2025</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden">
+          <div style="background:rgba(22,17,9,.7);padding:24px 20px">
+            <div class="rev-val" style="font-size:2rem;color:var(--gold-2)">800<span class="u">bn yuan</span></div>
+            <div class="ring-lab" style="margin-top:10px">Forest &amp; grass industry<br>output value</div>
+          </div>
+          <div style="background:rgba(22,17,9,.7);padding:24px 20px">
+            <div class="rev-val" style="font-size:2rem;color:var(--gold-2)">1.526<span class="u">M</span></div>
+            <div class="ring-lab" style="margin-top:10px">Farmers &amp; herders employed<br>through work-relief</div>
+          </div>
+          <div style="background:rgba(22,17,9,.7);padding:24px 20px">
+            <div class="rev-val" style="font-size:2rem;color:var(--gold-2)">10.24<span class="u">bn yuan</span></div>
+            <div class="ring-lab" style="margin-top:10px">Wages paid to<br>farmers &amp; herders</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-box reveal d1">
+        <div class="chart-title">Target: by 2030</div>
+        <div class="chart-sub">Advancing national sand control through the 15th Five-Year Plan</div>
+        <div style="display:flex;flex-direction:column;gap:16px;padding-top:4px">
+          <div>
+            <div style="font-size:1.7rem;font-weight:800;color:var(--green-2);letter-spacing:-.03em">~10M mu</div>
+            <div class="ring-lab" style="text-align:left;margin-top:4px">Sandified land treated nationwide</div>
+          </div>
+          <div style="border-top:1px dashed var(--line);padding-top:14px">
+            <div style="font-size:14px;color:var(--ink-2);line-height:1.7">
+              Ecological conditions will improve markedly across the four major sandy lands, desert oases,
+              the Qinghai-Tibet Plateau, the Yellow River basin and the Beijing-Tianjin-Hebei region,
+              essentially completing the ecological security barrier across northern China.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================= Timeline ================= -->
+<section id="timeline" class="timeline-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">TIMELINE</div>
+      <h2>Generations of time, planted into the sand</h2>
+      <p class="sec-desc">China's desert control is not a single campaign, but a relay race spanning more than half a century.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1978</div>
+        <div class="tl-title">The Three-North Shelterbelt Program is launched</div>
+        <div class="tl-desc">A vast ecological project spanning northwest, north and northeast China breaks ground, covering the country's most severely sandified regions and becoming one of the largest ecological engineering efforts in the world.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1984 — 1985</div>
+        <div class="tl-title">Farmer-led desert control takes root</div>
+        <div class="tl-desc">Shi Guangyin founds China's first farmer shareholding sand-control company, contracting over 3,000 mu of barren sand. Yin Yuzhen contracts barren land in Uxin Banner and goes on to transform <b>70,000 mu of desert into oasis</b> over nearly four decades.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1999 — 2017</div>
+        <div class="tl-title">Grain-for-Green · Beijing-Tianjin sandstorm source control</div>
+        <div class="tl-desc">Large-scale ecological restoration programs roll out. Vegetation in sandy areas gradually recovers, laying the groundwork for the later net reduction in sandified land.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2023 — present</div>
+        <div class="tl-title">The Three-North battle is fully joined</div>
+        <div class="tl-desc">The three flagship campaigns have received <b>88.9 billion yuan</b> in central investment, launched <b>544 key projects</b> and completed <b>244 million mu</b> of work. Phase VI has assigned 463 million mu of tasks, of which 355 million mu is done.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">NOV 2024</div>
+        <div class="tl-title">The Taklimakan Desert edge is "locked" — the final gap closed</div>
+        <div class="tl-desc">The last 285-kilometer gap along the edge of the world's second-largest shifting desert is closed. Locking the edge does not mean planting the whole desert, but weaving a green buffer belt at its rim to stop sand from spreading outward.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2025</div>
+        <div class="tl-title">The belt is widened · named a Global Top 10 Engineering Achievement</div>
+        <div class="tl-desc">21 key counties along the desert edge complete <b>9.3822 million mu</b> of belt expansion, with the locked-edge width growing from 110 meters to as much as 7,500 meters. The Taklimakan edge-locking project is named one of the <b>Top 10 Engineering Achievements of 2025</b> worldwide.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2026</div>
+        <div class="tl-title">The 14th Five-Year Plan scorecard: 15.2 million mu of sandified land treated</div>
+        <div class="tl-desc">The National Forestry and Grassland Administration reports that sandified land continues to shrink, with wind erosion across the eight major deserts and four major sandy lands down about 40% from 2000 levels.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================= Landmarks ================= -->
+<section id="cases">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">LANDMARKS</div>
+      <h2>Four defining battlegrounds</h2>
+      <p class="sec-desc">From Mu Us to Kubuqi, from Saihanba to Taklimakan &mdash; different landscapes, the same reversal.</p>
+    </div>
+
+    <div class="case-grid">
+      <div class="case reveal">
+        <div class="glow"></div>
+        <div class="case-icon">🏜️</div>
+        <div class="case-name">Mu Us Sandy Land</div>
+        <div class="case-loc">Yulin, Shaanxi · Ordos, Inner Mongolia</div>
+        <div class="case-stat">93.24<span class="u">%</span></div>
+        <div class="case-stat-desc">Sandified land treated in the Yulin sandy area</div>
+        <div class="case-desc">
+          Covering about 42,200 km². In the early years of the People's Republic, surface vegetation cover
+          here was just <b>0.9%</b>, and over 500 million tonnes of sediment poured into the Yellow River
+          each year. Forest cover has now risen above 34.8%, vegetation cover exceeds 80%, and the area of
+          shifting dunes has shrunk by <b>93%</b> &mdash; on track to become the first sandy land in human
+          history that may genuinely "disappear."
+        </div>
+        <div class="case-tags"><span class="tag">Straw checkerboard</span><span class="tag">Aerial seeding</span><span class="tag">80%+ vegetation cover</span></div>
+      </div>
+
+      <div class="case reveal d1">
+        <div class="glow"></div>
+        <div class="case-icon">☀️</div>
+        <div class="case-name">Kubuqi Desert</div>
+        <div class="case-loc">Ordos, Inner Mongolia</div>
+        <div class="case-stat">53<span class="u">%</span></div>
+        <div class="case-stat-desc">Vegetation cover (below 3% before treatment)</div>
+        <div class="case-desc">
+          After three decades of treatment, sandstorm days have fallen from more than <b>50 a year</b> to
+          <b>fewer than 5</b>. More than 40% of the desert has been treated, and an innovative
+          "solar PV + ecological industry" model now generates <b>4.65 billion yuan</b> in annual output.
+          The desert is also home to the Kubuqi International Desert Forum.
+        </div>
+        <div class="case-tags"><span class="tag">Solar PV sand control</span><span class="tag">Ecological industry</span><span class="tag">International forum</span></div>
+      </div>
+
+      <div class="case reveal d2">
+        <div class="glow"></div>
+        <div class="case-icon">🌲</div>
+        <div class="case-name">Saihanba Mechanical Forest Farm</div>
+        <div class="case-loc">Chengde, Hebei</div>
+        <div class="case-stat">82<span class="u">%</span></div>
+        <div class="case-stat-desc">Forest cover across 1.151 million mu of woodland</div>
+        <div class="case-desc">
+          Three generations spent more than sixty years turning a wasteland where "no bird would perch and
+          yellow sand blotted out the sky" into a man-made forest sea. The forest now delivers over
+          <b>10 billion yuan</b> in ecosystem services every year &mdash; a model of afforestation paired
+          with long-term stewardship.
+        </div>
+        <div class="case-tags"><span class="tag">Three generations</span><span class="tag">Man-made forest</span><span class="tag">Ecosystem services</span></div>
+      </div>
+
+      <div class="case reveal d3">
+        <div class="glow"></div>
+        <div class="case-icon">🛡️</div>
+        <div class="case-name">Taklimakan Edge-Locking Project</div>
+        <div class="case-loc">Tarim Basin, Xinjiang</div>
+        <div class="case-stat">285<span class="u">km</span></div>
+        <div class="case-stat-desc">Final gap closed along the desert edge in 2024</div>
+        <div class="case-desc">
+          The world's second-largest shifting desert, spanning 337,600 km². In 2025, 21 key counties
+          completed <b>9.3822 million mu</b> of belt expansion, widening the locked edge from 110 meters to
+          as much as 7,500 meters. The "green scarf" grows ever thicker &mdash; and the project was named
+          one of the Top 10 Engineering Achievements of 2025.
+        </div>
+        <div class="case-tags"><span class="tag">Edge locking</span><span class="tag">9.38M mu expanded</span><span class="tag">Global Top 10</span></div>
+      </div>
+
+      <div class="case reveal d3">
+        <div class="glow"></div>
+        <div class="case-icon">🐫</div>
+        <div class="case-name">Ordos: Desert Control at Full Scale</div>
+        <div class="case-loc">Ordos, Inner Mongolia</div>
+        <div class="case-stat">13<span class="u">M mu</span></div>
+        <div class="case-stat-desc">Cumulative sand control completed</div>
+        <div class="case-desc">
+          In 2025 alone, Ordos completed <b>6 million mu</b> of sand control, sustaining a pace of roughly
+          10,000 mu treated every day. It was the only Chinese city invited to speak at the 16th Conference
+          of the Parties to the UN Convention to Combat Desertification, and work-relief programs have
+          raised participating farmers' and herders' incomes by over 30,000 yuan each.
+        </div>
+        <div class="case-tags"><span class="tag">10,000 mu/day</span><span class="tag">Work relief</span><span class="tag">COP16 speaker</span></div>
+      </div>
+
+      <div class="case reveal d4">
+        <div class="glow"></div>
+        <div class="case-icon">👩‍🌾</div>
+        <div class="case-name">The People Who Did It</div>
+        <div class="case-loc">Ordinary people · Decades of work</div>
+        <div class="case-stat">380<span class="u">+</span></div>
+        <div class="case-stat-desc">Women who served in the Bulanghe militia sand-control brigade</div>
+        <div class="case-desc">
+          In 1974, 54 young women averaging 18 years old formed a sand-control brigade. Over more than
+          50 years, 14 successive commanders and <b>380-plus</b> militiawomen kept the relay going,
+          flattening <b>over 800 dunes</b> and planting 33 windbreak belts, turning more than 20,000 mu of
+          wasteland into oasis. The ledger of desert control records not only trees, but generations of time.
+        </div>
+        <div class="case-tags"><span class="tag">Women's brigade</span><span class="tag">Shi Guangyin</span><span class="tag">Yin Yuzhen</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================= Methodology ================= -->
+<section id="tech" class="tech-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">METHODOLOGY</div>
+      <h2>Desert control is not just planting trees</h2>
+      <p class="sec-desc">
+        From mechanical fixation to biological stabilization, from manual tending to smart monitoring &mdash;
+        China has built a complete, replicable technical system. The Three-North region is divided into
+        <b style="color:var(--gold-2)">136 ecological management zones</b>, with improved seed use exceeding 75%.
+      </p>
+    </div>
+
+    <div class="tech-flow">
+      <div class="tech-step">
+        <div class="tech-num">STEP 01</div>
+        <div class="tech-name">Mechanical fixation</div>
+        <div class="tech-desc">Straw checkerboards "pin down" the shifting sand surface, cutting near-ground wind speed and creating the conditions for vegetation to take hold.</div>
+        <div class="tech-metric">The earliest core technique</div>
+      </div>
+      <div class="tech-step">
+        <div class="tech-num">STEP 02</div>
+        <div class="tech-name">Biological stabilization</div>
+        <div class="tech-desc">Aerial seeding and drip irrigation paired with drought- and salt-tolerant native species such as Mongolian pine, sea buckthorn and cistanche build the protective system.</div>
+        <div class="tech-metric">Survival rate: under 20% → above 75%</div>
+      </div>
+      <div class="tech-step">
+        <div class="tech-num">STEP 03</div>
+        <div class="tech-name">Technology-enabled</div>
+        <div class="tech-desc">Remote sensing, drone seeding, smart irrigation, tree-planting robots and a dedicated desert-control equipment industrial park work in concert.</div>
+        <div class="tech-metric">Efficiency up 3× · 75% mechanized</div>
+      </div>
+      <div class="tech-step">
+        <div class="tech-num">STEP 04</div>
+        <div class="tech-name">Model innovation</div>
+        <div class="tech-desc">"Solar PV + sand control" has driven 5.3 million mu of treatment; 3,500+ km of desert-crossing highways have driven another 6.8 million mu.</div>
+        <div class="tech-metric">Ecological gains and industry revenue together</div>
+      </div>
+    </div>
+
+    <div class="footnote reveal">
+      Beyond technology comes institution: the central government has funded <b>100 dedicated
+      "industrialization of ecology, ecologicalization of industry" projects</b>; <b>10 industry standards</b>
+      for desertification control technology have been issued; pilot ecological compensation schemes for
+      desert ecosystems are underway; and desert ecosystem observation stations and ground-based sandstorm
+      monitoring stations now form an initial observation network.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================= International cooperation ================= -->
+<section id="world">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">CHINA'S SOLUTION</div>
+      <h2>China's experience is <em>going global</em></h2>
+      <p class="sec-desc">As a party to the UN Convention to Combat Desertification, China continues to deepen international cooperation on desertification control.</p>
+    </div>
+
+    <div class="intl-grid">
+      <div class="intl-list reveal">
+        <div class="intl-row">
+          <div class="intl-flag">🌍</div>
+          <div>
+            <div class="intl-name">Africa's Great Green Wall</div>
+            <div class="intl-desc">Chinese scientists brought water-saving irrigation technology and native plant seeds to Mauritania, building a China-Africa Green Technology Park in the Sahara that now grows Sudanese beans, eggplant and tomatoes.</div>
+          </div>
+        </div>
+        <div class="intl-row">
+          <div class="intl-flag">🌲</div>
+          <div>
+            <div class="intl-name">Mongolia's "One Billion Trees" initiative</div>
+            <div class="intl-desc">Chinese experts are helping promote straw checkerboard techniques and drought-tolerant planting, sharing experience in restoring arid-zone ecosystems.</div>
+          </div>
+        </div>
+        <div class="intl-row">
+          <div class="intl-flag">⚡</div>
+          <div>
+            <div class="intl-name">Solar PV sand control in Saudi Arabia</div>
+            <div class="intl-desc">China's "solar PV + sand control" model has been successfully deployed, easing desertification while offering a new pathway for energy transition.</div>
+          </div>
+        </div>
+        <div class="intl-row">
+          <div class="intl-flag">🤝</div>
+          <div>
+            <div class="intl-name">China–Central Asia Desertification Control Cooperation Center</div>
+            <div class="intl-desc">Agreed by the heads of state of the five Central Asian countries at the second China–Central Asia Summit in June 2025, the center was inaugurated in Ningxia the following month.</div>
+          </div>
+        </div>
+        <div class="intl-row">
+          <div class="intl-flag">🏛️</div>
+          <div>
+            <div class="intl-name">Multilateral platforms</div>
+            <div class="intl-desc">China–Central Asia, China–Arab and China–Mongolia desertification control cooperation centers have been established; ten editions of the Kubuqi International Desert Forum have been held; and the Boao Forum for Asia Ningxia desertification cooperation project is being advanced.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal d1">
+        <div class="quote-box">
+          <span class="qmark">“</span>
+          <p>China's desertified and sandified land areas are both shrinking continuously. It has become <strong>one of the clearest large-scale examples of land degradation reversal</strong>.</p>
+          <div class="who">
+            <b>Yasmin Fouad</b>
+            Executive Secretary, Secretariat of the UN Convention to Combat Desertification · Interview with Xinhua, July 2026
+          </div>
+        </div>
+
+        <div class="quote-box" style="margin-top:20px">
+          <span class="qmark">“</span>
+          <p>The Secretariat of the UN Convention to Combat Desertification has awarded China its <strong>Outstanding Contribution to Desertification Control</strong> award <strong>three times</strong>, with the assessment: <strong>"For desertification control, the world looks to China."</strong></p>
+          <div class="who">
+            <b>International recognition</b>
+            In April 2026, an accompanying <i>Nature</i> editorial noted that the experience of China's Three-North Shelterbelt Program could serve as a reference for other regions, particularly Africa
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>
+      <div class="foot-title">🌿 Green Advancing · China's Desertification Control</div>
+      <div class="foot-sub">
+        Sources: National Forestry and Grassland Administration; gov.cn, "China's Desertification Control<br>
+        Achieves Notable Results"; People's Daily, "China's Sandy Areas Continue to Improve During the 14th<br>
+        Five-Year Plan Period" (June 2026)
+      </div>
+    </div>
+    <div class="foot-right">
+      Deserts do not disappear on their own.<br>But people can make them disappear.
+    </div>
+  </div>
+</footer>
+
+<div id="top">↑</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- Scroll progress bar ---------- */
+  var progress = document.getElementById('progress');
+  var header = document.getElementById('header');
+  var topBtn = document.getElementById('top');
+
+  function onScroll(){
+    var st = window.pageYOffset || document.documentElement.scrollTop;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (h > 0 ? (st / h) * 100 : 0) + '%';
+    header.classList.toggle('solid', st > 60);
+    topBtn.classList.toggle('show', st > 700);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  topBtn.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  /* ---------- Mobile menu ---------- */
+  var burger = document.getElementById('burger');
+  var navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', function(){
+    navLinks.classList.toggle('open');
+  });
+  navLinks.addEventListener('click', function(e){
+    if(e.target.tagName === 'A') navLinks.classList.remove('open');
+  });
+
+  /* ---------- Sand mote animation ---------- */
+  var motes = document.getElementById('motes');
+  var frag = document.createDocumentFragment();
+  for(var i = 0; i < 34; i++){
+    var m = document.createElement('span');
+    m.className = 'mote';
+    var size = (Math.random() * 3 + 1).toFixed(1);
+    m.style.width = size + 'px';
+    m.style.height = size + 'px';
+    m.style.left = (Math.random() * 100).toFixed(2) + '%';
+    m.style.animationDuration = (Math.random() * 16 + 14).toFixed(1) + 's';
+    m.style.animationDelay = (-Math.random() * 26).toFixed(1) + 's';
+    m.style.opacity = (Math.random() * 0.5 + 0.2).toFixed(2);
+    frag.appendChild(m);
+  }
+  motes.appendChild(frag);
+
+  /* ---------- Number count-up ---------- */
+  function easeOut(t){ return 1 - Math.pow(1 - t, 3); }
+
+  function animateNumber(el){
+    if(el.dataset.done) return;
+    el.dataset.done = '1';
+    var target = parseFloat(el.dataset.count);
+    var dec = parseInt(el.dataset.dec || '0', 10);
+    var unit = el.querySelector('.u');
+    var unitHTML = unit ? unit.outerHTML : '';
+    var dur = 1400, start = null;
+
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var v = target * easeOut(p);
+      el.innerHTML = v.toFixed(dec) + unitHTML;
+      if(p < 1) requestAnimationFrame(step);
+      else el.innerHTML = target.toFixed(dec) + unitHTML;
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- Ring progress ---------- */
+  function animateRing(circle){
+    if(circle.dataset.done) return;
+    circle.dataset.done = '1';
+    var pct = parseFloat(circle.dataset.pct);
+    var r = 52;
+    var c = 2 * Math.PI * r;
+    circle.style.strokeDasharray = c;
+    circle.style.strokeDashoffset = c;
+    requestAnimationFrame(function(){
+      circle.style.strokeDashoffset = c * (1 - pct / 100);
+    });
+
+    // Numeric label
+    var holder = circle.closest('.ring').querySelector('[data-pct-text]');
+    if(holder && !holder.dataset.done){
+      holder.dataset.done = '1';
+      var dur = 1500, start = null;
+      function step(ts){
+        if(!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        holder.textContent = (pct * easeOut(p)).toFixed(2);
+        if(p < 1) requestAnimationFrame(step);
+        else holder.textContent = pct.toFixed(2);
+      }
+      requestAnimationFrame(step);
+    }
+  }
+
+  /* ---------- Bar chart ---------- */
+  function animateBars(){
+    var bars = document.querySelectorAll('.bar');
+    Array.prototype.forEach.call(bars, function(bar, i){
+      setTimeout(function(){
+        bar.style.height = bar.dataset.h + '%';
+      }, i * 110);
+    });
+  }
+
+  /* ---------- IntersectionObserver ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      var el = entry.target;
+
+      if(el.classList.contains('reveal')) el.classList.add('in');
+      if(el.classList.contains('tl-item')) el.classList.add('in');
+      if(el.classList.contains('tech-step')) el.classList.add('in');
+
+      // Hero numbers
+      el.querySelectorAll('[data-count]').forEach(animateNumber);
+      // Rings
+      el.querySelectorAll('.val').forEach(animateRing);
+      // Bar chart
+      if(el.id === 'bars') animateBars();
+
+      io.unobserve(el);
+    });
+  }, {threshold:0.15, rootMargin:'0px 0px -8% 0px'});
+
+  document.querySelectorAll('.reveal, .tl-item, .tech-step, .hero-stats, #bars').forEach(function(el){
+    io.observe(el);
+  });
+
+  /* ---------- Trigger hero numbers immediately ---------- */
+  window.addEventListener('load', function(){
+    var hs = document.querySelector('.hero-stats');
+    if(hs){
+      hs.querySelectorAll('[data-count]').forEach(animateNumber);
+    }
+  });
+
+  /* ---------- Tabular numerals fallback ---------- */
+  document.querySelectorAll('.rev-val, .case-stat, .tl-year').forEach(function(el){
+    el.style.fontVariantNumeric = 'tabular-nums';
+  });
+
+})();
+</script>
 </body>
 </html>
